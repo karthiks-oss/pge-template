@@ -1,32 +1,35 @@
-#include <iostream>
-#include <sstream>
-
 #define OLC_PGE_APPLICATION
-// ReSharper disable once CppUnusedIncludeDirective
 #include "olcPixelGameEngine.h"
 
-class PgeApp final : public olc::PixelGameEngine {
-public:
-    PgeApp() { sAppName = "PGE Demo App"; }
+class Example : public olc::PixelGameEngine {
+    public:
+        Example() {
+            sAppName = "Example";
+        }
 
-private:
+    public:
+        bool OnUserCreate() override {
+            // Called once at the start, so create things here
+            return true;
+        }
 
-private:
-    bool OnUserCreate() override {
-        return true;
-    }
-
-    bool OnUserUpdate(float fElapsedTime) override {
-        Clear(olc::DARK_BLUE);
-        return true;
-    }
+        bool OnUserUpdate(float fElapsedTime) override {
+            Clear(olc::BLACK);
+            // called once per frame
+            for (int x = 0; x < ScreenWidth(); x++)
+                for (int y = 0; y < ScreenHeight(); y++)
+                    Draw(x, y, olc::Pixel(rand() % 255, rand() % 255, rand()% 255));
+            
+            FillRect(GetMouseX(), GetMouseY(), 1, 1);
+            return true;
+        }
 };
 
 
-int main() {
-    std::cout << "Starting" << std::endl;
-    PgeApp pgeApp;
-    pgeApp.Construct(800, 480, 2, 2);
-    pgeApp.Start();
-    return 0;
+int main(int argc, char const *argv[]) {
+	Example demo;
+	if (demo.Construct(150, 100, 8, 8))
+		demo.Start();
+
+	return 0;
 }

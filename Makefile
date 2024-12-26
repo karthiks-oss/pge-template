@@ -1,4 +1,4 @@
-PROJECT := olc-nes
+PROJECT := demo
 SRCDIR := src/main/cpp
 HEADDIR := src/main/include
 TARGET_DIR := target
@@ -54,7 +54,7 @@ $(EXECUTABLE): $(OBJECTS)
 	@echo "$(COLOUR_BLUE)LINKING...... [{"
 	@echo "$(OBJECTS)" | tr ' ' '\n' | sed 's/^/\t\t/'
 	@echo "\t} -> $(COLOUR_RED)$@$(COLOUR_BLUE)\n]$(COLOUR_END)"
-	$(CC) $(ARCH_FLAGS) $(LINK_FLAGS) -o $@ $(OBJECTS)
+	@$(CC) $(ARCH_FLAGS) $(LINK_FLAGS) -o $@ $(OBJECTS)
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.cpp | MAKEDIRS
 	@echo "$(COLOUR_BLUE)COMPILING.... [$< -> $(COLOUR_RED)$@$(COLOUR_BLUE)]$(COLOUR_END)"
